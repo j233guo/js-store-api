@@ -81,4 +81,25 @@ public class UserModel {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public void verify() throws Exception {
+        if (firstName == null) {
+            throw new Exception("First name is empty");
+        }
+        if (lastName == null) {
+            throw new Exception("Last name is empty");
+        }
+        if (email == null || !email.contains("@")) {
+            throw new Exception("Email is empty / incorrect format");
+        }
+        if (username == null) {
+            throw new Exception("username is empty");
+        }
+        if (password == null) {
+            throw new Exception("password is empty");
+        }
+        if (!role.equals("user") || !role.equals("admin")) {
+            throw new Exception("role can only be user or admin");
+        }
+    }
 }

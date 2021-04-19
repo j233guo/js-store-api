@@ -33,9 +33,14 @@ public class UsersController {
 
     @PostMapping(value="/users", consumes={MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity createUser(@RequestBody UserModel user) {
-        var response = new CustomizedResponse("User created successfully", Collections.singletonList(userService.addUser(user)));
-        return new ResponseEntity(response, HttpStatus.OK);
-
+        try {
+            user.verify();
+            var response = new CustomizedResponse("User created successfully", Collections.singletonList(userService.addUser(user)));
+            return new ResponseEntity(response, HttpStatus.OK);
+        } catch (Exception e) {
+            var response = new CustomizedResponse(e.getMessage(), null);
+            return new ResponseEntity(response, HttpStatus.FORBIDDEN);
+        }
     }
 
     @DeleteMapping("/users/{id}")
