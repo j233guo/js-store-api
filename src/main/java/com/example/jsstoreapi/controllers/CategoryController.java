@@ -19,13 +19,13 @@ public class CategoryController {
 
     @GetMapping("/categories")
     public ResponseEntity getCategories() {
-        var customizedResponse = new CustomizedResponse("All categories: ", service.getCategories());
+        CustomizedResponse customizedResponse = new CustomizedResponse("All categories: ", service.getCategories());
         return new ResponseEntity(customizedResponse, HttpStatus.OK);
     }
 
     @GetMapping("/categories/{id}")
     public ResponseEntity getACategory(@PathVariable("id") String id) {
-        var customizedResponse = new CustomizedResponse("All categories: ", Collections.singletonList(service.getACategory(id)));
+        CustomizedResponse customizedResponse = new CustomizedResponse("All categories: ", Collections.singletonList(service.getACategory(id)));
         return new ResponseEntity(customizedResponse, HttpStatus.OK);
     }
 

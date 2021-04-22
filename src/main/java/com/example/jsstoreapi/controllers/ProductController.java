@@ -20,7 +20,7 @@ public class ProductController {
 
     @GetMapping("/products")
     public ResponseEntity getProducts() {
-        var customizedResponse = new CustomizedResponse("All Products", service.getProducts());
+        CustomizedResponse customizedResponse = new CustomizedResponse("All Products", service.getProducts());
         return new ResponseEntity(customizedResponse, HttpStatus.OK);
     }
 
@@ -38,13 +38,13 @@ public class ProductController {
 
     @GetMapping("/products/category")
     public ResponseEntity getProductsByCategory(@RequestParam(value="c") String c) {
-        var customizedResponse = new CustomizedResponse(c, service.getProductsByCategory(c));
+        CustomizedResponse customizedResponse = new CustomizedResponse(c, service.getProductsByCategory(c));
         return new ResponseEntity(customizedResponse, HttpStatus.OK);
     }
 
     @GetMapping("/products/bestsellers")
     public ResponseEntity getBestSellers() {
-        var customizedResponse = new CustomizedResponse("Best Sellers", service.getBestSellers());
+        CustomizedResponse customizedResponse = new CustomizedResponse("Best Sellers", service.getBestSellers());
         return new ResponseEntity(customizedResponse, HttpStatus.OK);
     }
 
@@ -65,10 +65,10 @@ public class ProductController {
     public ResponseEntity addProduct(@RequestBody Product p) {
         try {
             p.verify();
-            var response = new CustomizedResponse("product added successfully", Collections.singletonList(service.addAProduct(p)));
+            CustomizedResponse response = new CustomizedResponse("product added successfully", Collections.singletonList(service.addAProduct(p)));
             return new ResponseEntity(response, HttpStatus.OK);
         } catch (Exception ex) {
-            var response = new CustomizedResponse(ex.getMessage(), null);
+            CustomizedResponse response = new CustomizedResponse(ex.getMessage(), null);
             return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
         }
     }

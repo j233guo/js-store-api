@@ -25,10 +25,10 @@ public class AuthController {
     public ResponseEntity login(@RequestBody UserModel user) {
         try{
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-            var response = new CustomizedResponse("You logged in successfully", null);
+            CustomizedResponse response = new CustomizedResponse("You logged in successfully", null);
             return new ResponseEntity(response, HttpStatus.OK);
         } catch (BadCredentialsException ex){
-            var response = new CustomizedResponse("Your log in credentials are not correct", null);
+            CustomizedResponse response = new CustomizedResponse("Your log in credentials are not correct", null);
             return new ResponseEntity(response, HttpStatus.UNAUTHORIZED);
         }
     }

@@ -21,7 +21,7 @@ public class UsersController {
 
     @GetMapping("/users")
     public ResponseEntity getUsers() {
-        var response = new CustomizedResponse("A list of all users", userService.getUsers());
+        CustomizedResponse response = new CustomizedResponse("A list of all users", userService.getUsers());
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
@@ -41,10 +41,10 @@ public class UsersController {
     public ResponseEntity createUser(@RequestBody UserModel user) {
         try {
             user.verify();
-            var response = new CustomizedResponse("User created successfully", Collections.singletonList(userService.addUser(user)));
+            CustomizedResponse response = new CustomizedResponse("User created successfully", Collections.singletonList(userService.addUser(user)));
             return new ResponseEntity(response, HttpStatus.OK);
         } catch (Exception e) {
-            var response = new CustomizedResponse(e.getMessage(), null);
+            CustomizedResponse response = new CustomizedResponse(e.getMessage(), null);
             return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
         }
     }
@@ -52,7 +52,7 @@ public class UsersController {
     @DeleteMapping("/users/{id}")
     public ResponseEntity deleteUser(@PathVariable("id") String id) {
         userService.deleteUser(id);
-        var response = new CustomizedResponse("delete success", null);
+        CustomizedResponse response = new CustomizedResponse("delete success", null);
         return new ResponseEntity(response, HttpStatus.OK);
     }
 }
