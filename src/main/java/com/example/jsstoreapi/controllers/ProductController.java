@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class ProductController {
 
@@ -62,8 +63,14 @@ public class ProductController {
 
     @PostMapping(value="/products", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity addProduct(@RequestBody Product p) {
-        service.addAProduct(p);
-        return new ResponseEntity(HttpStatus.OK);
+        try {
+            p.verify();
+            var response = new CustomizedResponse("product added successfully", Collections.singletonList(service.addAProduct(p)));
+            return new ResponseEntity(response, HttpStatus.OK);
+        } catch (Exception ex) {
+            var response = new CustomizedResponse(ex.getMessage(), null);
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping(value="/products/{id}", consumes={MediaType.APPLICATION_JSON_VALUE})

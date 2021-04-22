@@ -98,7 +98,7 @@ public class UserModel {
         if (password == null) {
             throw new Exception("password is empty");
         }
-        if (!role.equals("user") || !role.equals("admin")) {
+        if (!role.equals("user") && !role.equals("admin")) {
             throw new Exception("role can only be user or admin");
         }
     }

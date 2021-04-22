@@ -34,8 +34,12 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    public Optional<UserModel> getAUser(String id) {
-        return userRepository.findById(id);
+    public Optional<UserModel> getAUser(String id) throws Exception{
+        Optional<UserModel> user = userRepository.findById(id);
+        if (!user.isPresent()) {
+            throw new Exception("User does not exist");
+        }
+        return user;
     }
 
     public void deleteUser(String id) {

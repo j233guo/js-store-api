@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @Controller
 public class UsersController {
 
@@ -26,9 +27,14 @@ public class UsersController {
 
     @GetMapping("/users/{id}")
     public ResponseEntity getAUser(@PathVariable("id") String id) {
-        var response = new CustomizedResponse("User with id "+id, Collections.singletonList(userService.getAUser(id)));
-        return new ResponseEntity(response, HttpStatus.OK);
-
+        CustomizedResponse response = null;
+        try {
+            response = new CustomizedResponse("User with id "+id, Collections.singletonList(userService.getAUser(id)));
+            return new ResponseEntity(response, HttpStatus.OK);
+        } catch (Exception e) {
+            response = new CustomizedResponse(e.getMessage(), null);
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping(value="/users", consumes={MediaType.APPLICATION_JSON_VALUE})
@@ -39,7 +45,7 @@ public class UsersController {
             return new ResponseEntity(response, HttpStatus.OK);
         } catch (Exception e) {
             var response = new CustomizedResponse(e.getMessage(), null);
-            return new ResponseEntity(response, HttpStatus.FORBIDDEN);
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
         }
     }
 

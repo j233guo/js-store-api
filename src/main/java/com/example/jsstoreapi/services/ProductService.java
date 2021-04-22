@@ -27,7 +27,7 @@ public class ProductService {
     public Optional<Product> getAProduct(String id) throws Exception {
         Optional<Product> product = repository.findById(id);
         if (!product.isPresent()) {
-            throw new Exception("Product not found");
+            throw new Exception("Product does not exist");
         }
         return product;
     }
@@ -54,8 +54,9 @@ public class ProductService {
         repository.deleteById(id);
     }
 
-    public void addAProduct(Product p) {
+    public Product addAProduct(Product p) {
         repository.insert(p);
+        return p;
     }
 
     public Product editProduct(String id, Product newProductData) throws Exception {
@@ -64,7 +65,6 @@ public class ProductService {
         if (!product.isPresent()) {
             throw new Exception("Product not found");
         }
-
         product.get().setImg(newProductData.getImg());
         product.get().setTitle(newProductData.getTitle());
         product.get().setName(newProductData.getName());
@@ -73,7 +73,6 @@ public class ProductService {
         product.get().setQty(newProductData.getQty());
         product.get().setBestseller(newProductData.getBestseller());
         product.get().setDescription(newProductData.getDescription());
-
         Product updatedProduct = repository.save(product.get());
         return updatedProduct;
     }

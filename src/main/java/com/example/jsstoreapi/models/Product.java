@@ -86,6 +86,30 @@ public class Product {
         this.qty = qty;
     }
 
+    public void verify() throws Exception {
+        if (img == null) {
+            throw new Exception("image is empty");
+        }
+        if (title == null) {
+            throw new Exception("title is empty");
+        }
+        if (name == null) {
+            throw new Exception("name is empty");
+        }
+        if (price == 0) {
+            throw new Exception("price is empty");
+        }
+        if (category == null) {
+            throw new Exception("category is empty");
+        }
+        if (bestseller == null) {
+            throw new Exception("bestseller is empty");
+        }
+        if (description == null) {
+            throw new Exception("description is empty");
+        }
+    }
+
     @Override
     public String toString() {
         return "Product{" +
